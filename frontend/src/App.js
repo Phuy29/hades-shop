@@ -13,7 +13,9 @@ import Product from "./pages/Products/Products";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import { ToastContainer } from "react-toastify";
-import Admin from "./pages/Admin/Admin";
+import ProductsManagement from "./pages/Admin/ProductsManagement";
+import CollectionsManagement from "./pages/Admin/CollectionsManagement";
+import UsersManagement from "./pages/Admin/UsersManagement";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -50,7 +52,12 @@ function App() {
             </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<Product />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/products" element={<ProductsManagement />} />
+            <Route
+              path="/admin/collections"
+              element={<CollectionsManagement />}
+            />
+            <Route path="/admin/users" element={<UsersManagement />} />
           </Routes>
           <SlideCart />
           <Search />

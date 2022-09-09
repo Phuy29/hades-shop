@@ -3,7 +3,7 @@ const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
 const router = require("express").Router();
 
-router.get("/", verifyTokenAndAdmin, userController.getAllUser);
+router.get("/", userController.getAllUser);
 
 router.delete("/:id", verifyTokenAndAdmin, userController.deleteUser);
 

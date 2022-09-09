@@ -60,3 +60,30 @@ export const getOneProduct = async (id, setState) => {
     console.log(error);
   }
 };
+
+export const getAllProducts = async (setState) => {
+  try {
+    const res = await axios.get("/product");
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllCollections = async (setState) => {
+  try {
+    const res = await axios.get("/collection");
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllUsers = async (setState) => {
+  try {
+    const res = await axios.get("/user");
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
