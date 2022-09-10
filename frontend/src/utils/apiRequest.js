@@ -95,3 +95,11 @@ export const addProduct = async (product) => {
     console.log(error);
   }
 };
+
+export const addCollection = async (collection) => {
+  try {
+    await axios.post("/collection", collection);
+  } catch (error) {
+    console.log(error);
+  }
+};

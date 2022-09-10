@@ -13,12 +13,12 @@ const UsersManagement = () => {
       <div className="">
         {/* Heading */}
         <h1 className="text-36 font-medium text-center mb-8">
-          Quản lý sản phẩm
+          Quản lý người dùng
         </h1>
 
-        {/* Button add product */}
+        {/* Button add user */}
         <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-          Add product
+          Add user
         </button>
 
         {/* Table */}

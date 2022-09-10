@@ -33,7 +33,9 @@ const AddProduct = () => {
           <div className="cursor-pointer">Back</div>
         </div>
       </Link>
-      <div className="text-center text-36 font-semibold">Add product</div>
+      <div className="text-center text-36 font-semibold uppercase">
+        Add product
+      </div>
 
       <Formik
         initialValues={{

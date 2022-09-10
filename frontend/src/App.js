@@ -17,6 +17,7 @@ import ProductsManagement from "./pages/Admin/Products/ProductsManagement";
 import CollectionsManagement from "./pages/Admin/Collections/CollectionsManagement";
 import UsersManagement from "./pages/Admin/Users/UsersManagement";
 import AddProduct from "./pages/Admin/Products/AddProduct";
+import AddCollection from "./pages/Admin/Collections/AddCollection";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -60,6 +61,10 @@ function App() {
             <Route
               path="/admin/products/add-product"
               element={<AddProduct />}
+            />
+            <Route
+              path="/admin/collections/add-collection"
+              element={<AddCollection />}
             />
           </Routes>
           <SlideCart />

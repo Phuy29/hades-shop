@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getAllCollections } from "../../../utils/apiRequest";
 
 const CollectionsManagement = () => {
@@ -16,10 +17,12 @@ const CollectionsManagement = () => {
           Quản lý bộ sưu tập
         </h1>
 
-        {/* Button add product */}
-        <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-          Add collection
-        </button>
+        {/* Button add collection */}
+        <Link to="/admin/collections/add-collection">
+          <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
+            Add collection
+          </button>
+        </Link>
 
         {/* Table */}
         <div className="container mx-auto mt-7 pb-20">
