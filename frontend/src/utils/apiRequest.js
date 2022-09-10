@@ -103,3 +103,11 @@ export const addCollection = async (collection) => {
     console.log(error);
   }
 };
+
+export const deleteProduct = async (id) => {
+  try {
+    await axios.delete(`/product/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};

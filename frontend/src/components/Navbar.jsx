@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed z-[10000] px-14 top-0 w-full ${
+      className={`fixed z-10 px-14 top-0 w-full ${
         isBg && "bg-white"
       } transition-all duration-300`}
     >
