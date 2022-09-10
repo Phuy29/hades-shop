@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCollections } from "../../utils/apiRequest";
+import { getAllCollections } from "../../../utils/apiRequest";
 
 const CollectionsManagement = () => {
   const [allCollections, setAllCollections] = useState([]);

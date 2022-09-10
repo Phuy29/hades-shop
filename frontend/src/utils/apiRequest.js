@@ -87,3 +87,11 @@ export const getAllUsers = async (setState) => {
     console.log(error);
   }
 };
+
+export const addProduct = async (product) => {
+  try {
+    await axios.post("/product", product);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -13,9 +13,10 @@ import Product from "./pages/Products/Products";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import { ToastContainer } from "react-toastify";
-import ProductsManagement from "./pages/Admin/ProductsManagement";
-import CollectionsManagement from "./pages/Admin/CollectionsManagement";
-import UsersManagement from "./pages/Admin/UsersManagement";
+import ProductsManagement from "./pages/Admin/Products/ProductsManagement";
+import CollectionsManagement from "./pages/Admin/Collections/CollectionsManagement";
+import UsersManagement from "./pages/Admin/Users/UsersManagement";
+import AddProduct from "./pages/Admin/Products/AddProduct";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -56,6 +57,10 @@ function App() {
               element={<CollectionsManagement />}
             />
             <Route path="/admin/users" element={<UsersManagement />} />
+            <Route
+              path="/admin/products/add-product"
+              element={<AddProduct />}
+            />
           </Routes>
           <SlideCart />
           <Search />

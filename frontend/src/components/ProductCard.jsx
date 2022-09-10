@@ -69,17 +69,16 @@ const ProductCard = ({
         </div>
       </div>
       <div className="mt-[15px]">
-        <div className="inline-flex gap-2 mb-3">
+        {/* <div className="inline-flex gap-2 mb-3">
           {colors.map((color) => {
             return (
-              <p
-                key={color.name}
-                className={`h-3 w-3 inline-block bg-[${color.color}] m-auto`}
-              ></p>
+              <p key={color} className={`inline-block mx-auto`}>
+                {color}
+              </p>
             );
           })}
-        </div>
-        <p className="text-12 font-semibold">{name}</p>
+        </div> */}
+        <p className="text-14 font-semibold">{name}</p>
         {price ? (
           <p className="text-14 mt-2">{price},000₫</p>
         ) : (

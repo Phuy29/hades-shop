@@ -12,7 +12,7 @@ const ProductList = ({ allPros }) => {
               name={item.name}
               price={item.price}
               colors={item.colors}
-              size={item.size}
+              size={item.sizes}
               imageUrl={item.imgUrl}
               imageHoverUrl={item.imgUrlHover}
             />

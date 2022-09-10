@@ -32,17 +32,10 @@ const productModel = mongoose.Schema(
     price: {
       type: String,
     },
-    colors: [
-      {
-        name: {
-          type: String,
-        },
-        color: {
-          type: String,
-        },
-      },
-    ],
-    size: {
+    colors: {
+      type: [String],
+    },
+    sizes: {
       type: [String],
     },
     imgUrl: {

@@ -115,17 +115,16 @@ const Product = () => {
             <div className="inline-flex gap-2 my-2">
               {product.colors?.map((color) => {
                 return (
-                  <div
-                    key={color.name}
-                    className={`h-3 w-3 bg-[${color.color}]`}
-                  >
+                  <div key={color} className="">
                     <input
                       type="radio"
                       name="color"
-                      value={color.name}
-                      className="translate-y-[-50%]"
+                      value={color}
+                      id={color}
+                      className="sr-only"
                       onChange={(e) => setColor(e.target.value)}
                     />
+                    <label htmlFor={color}>{color}</label>
                   </div>
                 );
               })}
@@ -138,7 +137,7 @@ const Product = () => {
             </p>
           </div>
           <div className="flex flex-wrap my-5">
-            {product.size?.map((item) => {
+            {product.sizes?.map((item) => {
               return (
                 <div key={item} className="group">
                   <input

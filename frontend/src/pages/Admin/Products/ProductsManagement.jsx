@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../../utils/apiRequest";
+import { Link } from "react-router-dom";
+import { getAllProducts } from "../../../utils/apiRequest";
 
 const ProductManagement = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -18,7 +19,7 @@ const ProductManagement = () => {
 
         {/* Button add product */}
         <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-          Add product
+          <Link to="/admin/products/add-product">Add product</Link>
         </button>
 
         {/* Table */}
@@ -46,12 +47,12 @@ const ProductManagement = () => {
                     <td>{product.price},000₫</td>
                     <td>
                       {product.colors.map((color) => {
-                        return <span key={color.name}>{color.name} </span>;
+                        return <div key={color}>{color} </div>;
                       })}
                     </td>
                     <td>
-                      {product.size.map((size) => {
-                        return <span key={size}>{size} </span>;
+                      {product.sizes.map((size) => {
+                        return <div key={size}>{size} </div>;
                       })}
                     </td>
                     <td>

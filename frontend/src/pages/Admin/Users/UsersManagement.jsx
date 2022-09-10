@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../utils/apiRequest";
+import { getAllUsers } from "../../../utils/apiRequest";
 
 const UsersManagement = () => {
   const [allUsers, setAllUsers] = useState([]);
