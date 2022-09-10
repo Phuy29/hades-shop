@@ -4,11 +4,11 @@ const router = require("express").Router();
 
 router.get("/", productController.getAllProduct);
 
-router.get("/:id", productController.getOneProduct);
+router.get("/:slug", productController.getOneProduct);
 
 router.post("/", productController.addProduct);
 
-router.put("/:id", productController.updateProduct);
+router.put("/:slug", productController.updateProduct);
 
 router.delete("/:id", productController.deleteProduct);
 

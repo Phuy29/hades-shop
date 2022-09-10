@@ -33,7 +33,7 @@ const ProductManagement = () => {
                 <th className="w-1/6">Size</th>
                 <th className="w-1/6">Image</th>
                 <th className="w-1/6">Collection</th>
-                <th className="w-1/6"></th>
+                <th className="w-1/6">Actions</th>
               </tr>
             </thead>
 
@@ -57,11 +57,7 @@ const ProductManagement = () => {
                     <td>
                       <img src={product.imgUrl} alt="" />
                     </td>
-                    <td className="uppercase">
-                      {product.collectionId.map((item) => (
-                        <>{item.name}</>
-                      ))}
-                    </td>
+                    <td className="uppercase">{product.collectionId.name}</td>
                     <td className="flex justify-center gap-3 mt-28">
                       <button className="py-2 px-4 bg-black text-white hover:opacity-60">
                         Update

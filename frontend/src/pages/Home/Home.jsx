@@ -1,20 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductList from "../../components/ProductList";
+import { getProductsOfCollection } from "../../utils/apiRequest";
 
 const Home = () => {
   const [allPros, setAllPros] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      const res = await axios.get(
-        "http://localhost:8080/collection/6316e13590b0270ff11a2fe0"
-      );
-      return res;
-    }
-    getData().then((res) => setAllPros(res.data.products));
-    getData().catch((err) => console.log(err));
+    getProductsOfCollection("tops", setAllPros);
   }, []);
 
   return (

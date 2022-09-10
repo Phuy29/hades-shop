@@ -9,7 +9,7 @@ const Collections = () => {
   const params = useParams();
 
   useEffect(() => {
-    getProductsOfCollection(params.collectionId, setProductsList);
+    getProductsOfCollection(params.collectionId.split("}")[0], setProductsList);
   }, [params.collectionId]);
 
   return (

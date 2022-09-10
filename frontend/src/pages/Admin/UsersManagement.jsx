@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllProducts, getAllUsers } from "../../utils/apiRequest";
+import { getAllUsers } from "../../utils/apiRequest";
 
 const UsersManagement = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -29,7 +29,7 @@ const UsersManagement = () => {
               <tr className="text-center text-gray-600">
                 <th className="w-1/6 py-4">Username</th>
                 <th className="w-1/6">Email</th>
-                <th className="w-1/6"></th>
+                <th className="w-1/6">Actions</th>
               </tr>
             </thead>
 

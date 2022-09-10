@@ -20,6 +20,7 @@ const Product = () => {
     const newItem = {
       id: product._id,
       name: product.name,
+      slug: product.slug,
       price: product.price,
       color: color,
       size: size,
@@ -57,6 +58,7 @@ const Product = () => {
     const newItem = {
       id: product._id,
       name: product.name,
+      slug: product.slug,
       price: product.price,
       color: color,
       size: size,

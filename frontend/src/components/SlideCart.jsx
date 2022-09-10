@@ -106,7 +106,7 @@ const SlideCart = () => {
                                   <li key={index}>
                                     <div className="flex gap-3 my-4">
                                       <Link
-                                        to={`/product/${item.id}`}
+                                        to={`/product/${item.slug}`}
                                         onClick={handleCloseSlideCart}
                                       >
                                         <img

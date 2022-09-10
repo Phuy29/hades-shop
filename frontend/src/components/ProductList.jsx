@@ -8,6 +8,7 @@ const ProductList = ({ allPros }) => {
           <div key={item.name}>
             <ProductCard
               id={item._id}
+              slug={item.slug}
               name={item.name}
               price={item.price}
               colors={item.colors}

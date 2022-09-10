@@ -23,9 +23,9 @@ const collectionController = {
 
   getOneCollection: async (req, res) => {
     try {
-      const oneCollection = await Collection.findById(req.params.id).populate(
-        "products"
-      );
+      const oneCollection = await Collection.findOne({
+        slug: req.params.slug,
+      }).populate("products");
       res.status(200).json(oneCollection);
     } catch (error) {
       res.status(500).json(error);
@@ -34,7 +34,7 @@ const collectionController = {
 
   updateCollection: async (req, res) => {
     try {
-      const collection = await Collection.findById(req.params.id);
+      const collection = await Collection.findOne({ slug: req.params.slug });
       await collection.updateOne({ $set: req.body });
       res.status(200).json("Updated successfully!");
     } catch (error) {

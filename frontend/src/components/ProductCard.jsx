@@ -7,6 +7,7 @@ import { addToCart, getTotalPrice } from "../redux/cartSlice";
 const ProductCard = ({
   id,
   name,
+  slug,
   price,
   colors,
   size,
@@ -20,6 +21,7 @@ const ProductCard = ({
   const newItem = {
     id: id,
     name: name,
+    slug: slug,
     price: Number(price.slice(0, 3)),
     color: colors[0].name,
     size: size[0],
@@ -41,7 +43,7 @@ const ProductCard = ({
   return (
     <div className="text-center cursor-pointer">
       <div className="relative group h-full">
-        <Link to={`/product/${id}`}>
+        <Link to={`/product/${slug}`}>
           <div className="group-hover:hidden">
             <img
               src={imageUrl}

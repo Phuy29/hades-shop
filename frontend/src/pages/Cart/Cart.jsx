@@ -48,7 +48,7 @@ const Cart = () => {
             return (
               <div key={index}>
                 <div className="flex gap-3 justify-between items-center py-2 pl-1 my-4 border-b bg-white">
-                  <Link to={`/product/${item.id}`}>
+                  <Link to={`/product/${item.slug}`}>
                     <img
                       src={item.imageUrl}
                       alt=""

@@ -28,7 +28,7 @@ const CollectionsManagement = () => {
             <thead className="bg-gray-200">
               <tr className="text-center text-gray-600">
                 <th className="w-1/6 py-4">Name</th>
-                <th className="w-1/6"></th>
+                <th className="w-1/6">Actions</th>
               </tr>
             </thead>
 

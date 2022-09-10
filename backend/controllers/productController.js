@@ -28,7 +28,7 @@ const productController = {
 
   getOneProduct: async (req, res) => {
     try {
-      const oneProduct = await Product.findById(req.params.id);
+      const oneProduct = await Product.findOne({ slug: req.params.slug });
       res.status(200).json(oneProduct);
     } catch (error) {
       res.status(500).json(error);
@@ -37,7 +37,7 @@ const productController = {
 
   updateProduct: async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
+      const product = await Product.findOne({ slug: req.params.slug });
       await product.updateOne({ $set: req.body });
       res.status(200).json(product);
     } catch (error) {

@@ -4,11 +4,11 @@ const router = require("express").Router();
 
 router.get("/", collectionController.getAllCollection);
 
-router.get("/:id", collectionController.getOneCollection);
+router.get("/:slug", collectionController.getOneCollection);
 
 router.post("/", collectionController.addCollection);
 
-router.put("/:id", collectionController.updateCollection);
+router.put("/:slug", collectionController.updateCollection);
 
 router.delete("/:id", collectionController.deleteCollection);
 

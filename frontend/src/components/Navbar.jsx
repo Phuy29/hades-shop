@@ -2,40 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../utils/apiRequest";
+import { getAllCollections, logoutUser } from "../utils/apiRequest";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-
-const menu = [
-  {
-    name: "shop all",
-    href: "/collection/6316e13590b0270ff11a2fe0",
-  },
-  {
-    name: "top",
-    href: "/collection/6316e15990b0270ff11a2fe2",
-  },
-  {
-    name: "bottom",
-    href: "collection/6316e16290b0270ff11a2fe4",
-  },
-  {
-    name: "outerwear",
-    href: "collection/6316e17190b0270ff11a2fe6",
-  },
-  {
-    name: "footwear",
-    href: "collection/6316e17f90b0270ff11a2fe8",
-  },
-  {
-    name: "hat",
-    href: "collection/6316e18a90b0270ff11a2fea",
-  },
-  {
-    name: "bag",
-    href: "collection/6316e19490b0270ff11a2fec",
-  },
-];
 
 const adminNavigation = [
   { name: "Products", href: "/admin/products" },
@@ -50,13 +19,18 @@ const classNames = (...classes) => {
 };
 
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart);
   const { setOpenSlideCart, setOpenSearch } = useContext(CartContext);
+  const cart = useSelector((state) => state.cart);
   const [isBg, setIsBg] = useState(false);
+  const [allCollections, setAllCollections] = useState([]);
 
   const user = useSelector((state) => state.auth.login.currentUser);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAllCollections(setAllCollections);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,9 +63,9 @@ const Navbar = () => {
           </Link>
 
           <div className="flex gap-5 w-[400px] justify-between">
-            {menu.map((item, index) => {
+            {allCollections.map((item, index) => {
               return (
-                <Link to={item.href} key={index}>
+                <Link to={`/collection/${item.slug}}`} key={index}>
                   <div
                     className={`uppercase font-normal text-13 hover:font-medium `}
                   >

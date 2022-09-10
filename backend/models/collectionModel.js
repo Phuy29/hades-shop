@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+var slug = require("mongoose-slug-generator");
+
+mongoose.plugin(slug);
 
 const collectionModel = mongoose.Schema(
   {
@@ -7,6 +10,7 @@ const collectionModel = mongoose.Schema(
       require: true,
       unique: true,
     },
+    slug: { type: String, slug: "name" },
     products: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +28,7 @@ const productModel = mongoose.Schema(
       require: true,
       unique: true,
     },
+    slug: { type: String, slug: "name" },
     price: {
       type: String,
     },
@@ -47,7 +52,7 @@ const productModel = mongoose.Schema(
       type: String,
     },
     collectionId: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: mongoose.Schema.Types.ObjectId,
       ref: "collection",
     },
   },
