@@ -19,6 +19,7 @@ import UsersManagement from "./pages/Admin/Users/UsersManagement";
 import AddProduct from "./pages/Admin/Products/AddProduct";
 import AddCollection from "./pages/Admin/Collections/AddCollection";
 import UpdateProduct from "./pages/Admin/Products/UpdateProduct";
+import Custom404 from "./pages/404";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -71,6 +72,7 @@ function App() {
               path="/admin/products/update-product/:productSlug"
               element={<UpdateProduct />}
             />
+            <Route path="*" element={<Custom404 />} />
           </Routes>
           <SlideCart />
           <Search />

@@ -8,7 +8,9 @@ const ProductManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    getAllProducts(setAllProducts);
+    setTimeout(() => {
+      getAllProducts(setAllProducts);
+    }, 200);
   }, []);
 
   return (
@@ -62,13 +64,13 @@ const ProductManagement = () => {
                     </td>
                     <td className="uppercase">{product.collectionId.name}</td>
                     <td className="flex justify-center gap-3 mt-28">
-                      <button className="py-2 px-4 bg-black text-white hover:opacity-60">
-                        <Link
-                          to={`/admin/products/update-product/${product.slug}`}
-                        >
+                      <Link
+                        to={`/admin/products/update-product/${product.slug}`}
+                      >
+                        <button className="py-2 px-4 bg-black text-white hover:opacity-60">
                           Update
-                        </Link>
-                      </button>
+                        </button>
+                      </Link>
                       <button
                         className="py-2 px-4 border border-black hover:opacity-60"
                         onClick={() => setIsOpen(true)}
@@ -111,7 +113,7 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
           <div className="fixed inset-0 z-20 bg-black bg-opacity-25" />
 
           <div className="fixed z-30 inset-0 overflow-y-auto flex justify-center items-center flex-col">
-            <div className="bg-white rounded-md">
+            <div className="bg-white rounded-md relative">
               <div className="p-6 text-20 font-normal text-gray-900">
                 Bạn có chắc chắn muốn xóa sản phẩm này không?
               </div>

@@ -111,3 +111,11 @@ export const deleteProduct = async (id) => {
     console.log(error);
   }
 };
+
+export const updateProduct = async (slug, product) => {
+  try {
+    await axios.put(`/product/${slug}`, product);
+  } catch (error) {
+    console.log(error);
+  }
+};

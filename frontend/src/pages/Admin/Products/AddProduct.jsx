@@ -49,7 +49,6 @@ const AddProduct = () => {
         }}
         onSubmit={(values) => {
           addProduct(values);
-          console.log(values);
           navigate("/admin/products");
         }}
       >

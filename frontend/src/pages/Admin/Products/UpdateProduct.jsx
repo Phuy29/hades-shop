@@ -1,7 +1,11 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getAllCollections, getOneProduct } from "../../../utils/apiRequest";
+import {
+  getAllCollections,
+  getOneProduct,
+  updateProduct,
+} from "../../../utils/apiRequest";
 
 const UpdateProduct = () => {
   const [allCollections, setAllCollections] = useState([]);
@@ -45,17 +49,19 @@ const UpdateProduct = () => {
       </div>
 
       <Formik
+        enableReinitialize
         initialValues={{
-          name: "",
-          price: "",
-          colors: "",
-          sizes: [],
-          imgUrl: "",
-          imgUrlHover: "",
-          collectionId: "631c32fa60c26a22dc545d14",
+          name: product.name,
+          price: product.price,
+          colors: product.colors,
+          sizes: product.sizes,
+          imgUrl: product.imgUrl,
+          imgUrlHover: product.imgUrlHover,
+          collectionId: product.collectionId,
         }}
         onSubmit={(values) => {
-          console.log(values);
+          updateProduct(product.slug, values);
+          navigate("/admin/products");
         }}
       >
         <Form className="mt-12 max-w-lg mx-auto">
@@ -66,7 +72,6 @@ const UpdateProduct = () => {
             type="text"
             name="name"
             className="mt-1 py-2 px-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500"
-            value={product.name}
           />
 
           <label htmlFor="price" className="block text-gray-700 mt-3">
@@ -76,7 +81,6 @@ const UpdateProduct = () => {
             type="text"
             name="price"
             className="mt-1 py-2 px-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500"
-            value={product.price}
           />
 
           <div className="block text-gray-700 mt-3">Colors:</div>
@@ -115,7 +119,6 @@ const UpdateProduct = () => {
             type="text"
             name="imgUrl"
             className="mt-1 py-2 px-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500"
-            value={product.imgUrl}
           />
 
           <label htmlFor="imgUrlHover" className="block text-gray-700 mt-3">
@@ -125,7 +128,6 @@ const UpdateProduct = () => {
             type="text"
             name="imgUrlHover"
             className="mt-1 py-2 px-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500"
-            value={product.imgUrlHover}
           />
 
           <label htmlFor="collectionId" className="block text-gray-700 mt-3">
