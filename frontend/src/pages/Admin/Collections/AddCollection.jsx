@@ -34,10 +34,9 @@ const AddCollection = () => {
         initialValues={{
           name: "",
         }}
-        onSubmit={(values) => {
-          addCollection(values);
+        onSubmit={async (values) => {
+          await addCollection(values);
           navigate("/admin/collections");
-          console.log(values);
         }}
       >
         <Form className="mt-12 max-w-lg mx-auto">
