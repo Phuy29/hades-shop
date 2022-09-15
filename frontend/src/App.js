@@ -20,6 +20,7 @@ import AddProduct from "./pages/Admin/Products/AddProduct";
 import AddCollection from "./pages/Admin/Collections/AddCollection";
 import UpdateProduct from "./pages/Admin/Products/UpdateProduct";
 import Custom404 from "./pages/404";
+import UpdateCollection from "./pages/Admin/Collections/UpdateCollection";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -71,6 +72,10 @@ function App() {
             <Route
               path="/admin/products/update-product/:productSlug"
               element={<UpdateProduct />}
+            />
+            <Route
+              path="/admin/collections/update-collection/:collectionSlug"
+              element={<UpdateCollection />}
             />
             <Route path="*" element={<Custom404 />} />
           </Routes>

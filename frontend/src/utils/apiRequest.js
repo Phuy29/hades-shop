@@ -61,6 +61,15 @@ export const getOneProduct = async (id, setState) => {
   }
 };
 
+export const getOneCollection = async (id, setState) => {
+  try {
+    const res = await axios.get(`/collection/${id}`);
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getAllProducts = async (setState) => {
   try {
     const res = await axios.get("/product");
@@ -123,6 +132,14 @@ export const updateProduct = async (slug, product) => {
 export const deleteCollection = async (id) => {
   try {
     await axios.delete(`/collection/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateCollection = async (slug, collection) => {
+  try {
+    await axios.put(`/collection/${slug}`, collection);
   } catch (error) {
     console.log(error);
   }

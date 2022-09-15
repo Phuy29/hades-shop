@@ -11,8 +11,6 @@ const CollectionsManagement = () => {
     getAllCollections(setAllCollections);
   }, []);
 
-  console.log("render");
-
   const handleDelete = (id) => {
     setIsOpen(true);
     setCollectionId(id);
@@ -51,9 +49,13 @@ const CollectionsManagement = () => {
                   <tr key={collection._id}>
                     <td className="uppercase">{collection.name}</td>
                     <td className="flex justify-center gap-3 py-3">
-                      <button className="py-2 px-4 bg-black text-white hover:opacity-60">
-                        Update
-                      </button>
+                      <Link
+                        to={`/admin/collections/update-collection/${collection.slug}`}
+                      >
+                        <button className="py-2 px-4 bg-black text-white hover:opacity-60">
+                          Update
+                        </button>
+                      </Link>
                       <button
                         className="py-2 px-4 border border-black hover:opacity-60"
                         onClick={() => handleDelete(collection._id)}
