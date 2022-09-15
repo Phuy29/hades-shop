@@ -47,8 +47,8 @@ const AddProduct = () => {
           imgUrlHover: "",
           collectionId: "631c32fa60c26a22dc545d14",
         }}
-        onSubmit={(values) => {
-          addProduct(values);
+        onSubmit={async (values) => {
+          await addProduct(values);
           navigate("/admin/products");
         }}
       >

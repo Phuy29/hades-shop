@@ -59,8 +59,8 @@ const UpdateProduct = () => {
           imgUrlHover: product.imgUrlHover,
           collectionId: product.collectionId,
         }}
-        onSubmit={(values) => {
-          updateProduct(product.slug, values);
+        onSubmit={async (values) => {
+          await updateProduct(product.slug, values);
           navigate("/admin/products");
         }}
       >

@@ -4,14 +4,17 @@ import { deleteProduct, getAllProducts } from "../../../utils/apiRequest";
 
 const ProductManagement = () => {
   const [allProducts, setAllProducts] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
+  const [productId, setProductId] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
-      getAllProducts(setAllProducts);
-    }, 200);
+    getAllProducts(setAllProducts);
   }, []);
+
+  const handleDelete = (id) => {
+    setIsOpen(true);
+    setProductId(id);
+  };
 
   return (
     <div className="mt-24 px-14">
@@ -73,16 +76,10 @@ const ProductManagement = () => {
                       </Link>
                       <button
                         className="py-2 px-4 border border-black hover:opacity-60"
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => handleDelete(product._id)}
                       >
                         Delete
                       </button>
-                      <ModelDelete
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        id={product._id}
-                        setAllProducts={setAllProducts}
-                      />
                     </td>
                   </tr>
                 );
@@ -91,6 +88,12 @@ const ProductManagement = () => {
           </table>
         </div>
       </div>
+      <ModelDelete
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        id={productId}
+        setAllProducts={setAllProducts}
+      />
     </div>
   );
 };
@@ -100,7 +103,7 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
     setIsOpen(false);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     await deleteProduct(id);
     getAllProducts(setAllProducts);
     setIsOpen(false);
@@ -121,7 +124,7 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
                 <button
                   type="button"
                   className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => handleDelete(id)}
+                  onClick={handleDelete}
                 >
                   Delete
                 </button>
