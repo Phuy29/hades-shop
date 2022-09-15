@@ -1,9 +1,18 @@
 import { Field, Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { addCollection } from "../../../utils/apiRequest";
+import { useDispatch, useSelector } from "react-redux";
+import { createAxios } from "../../../utils/createInterceptor";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const AddCollection = () => {
   const navigate = useNavigate();
+
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
   return (
     <div className="mt-32 px-24 mx-auto">
@@ -35,7 +44,7 @@ const AddCollection = () => {
           name: "",
         }}
         onSubmit={async (values) => {
-          await addCollection(values);
+          await addCollection(currentUser?.accessToken, values, axiosJWT);
           navigate("/admin/collections");
         }}
       >

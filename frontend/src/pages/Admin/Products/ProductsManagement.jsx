@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginSuccess } from "../../../redux/authSlice";
 import { deleteProduct, getAllProducts } from "../../../utils/apiRequest";
+import { createAxios } from "../../../utils/createInterceptor";
 
 const ProductManagement = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -25,9 +28,11 @@ const ProductManagement = () => {
         </h1>
 
         {/* Button add product */}
-        <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-          <Link to="/admin/products/add-product">Add product</Link>
-        </button>
+        <Link to="/admin/products/add-product">
+          <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
+            Add product
+          </button>
+        </Link>
 
         {/* Table */}
         <div className="container mx-auto mt-7 pb-20">
@@ -99,12 +104,18 @@ const ProductManagement = () => {
 };
 
 const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
+
   const closeModal = () => {
     setIsOpen(false);
   };
 
   const handleDelete = async () => {
-    await deleteProduct(id);
+    await deleteProduct(currentUser?.accessToken, id, axiosJWT);
     getAllProducts(setAllProducts);
     setIsOpen(false);
   };

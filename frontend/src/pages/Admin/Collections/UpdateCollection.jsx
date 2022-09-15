@@ -1,7 +1,10 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { loginSuccess } from "../../../redux/authSlice";
 import { getOneCollection, updateCollection } from "../../../utils/apiRequest";
+import { createAxios } from "../../../utils/createInterceptor";
 
 const UpdateCollection = () => {
   const [collection, setCollection] = useState();
@@ -9,6 +12,12 @@ const UpdateCollection = () => {
   const params = useParams();
 
   const navigate = useNavigate();
+
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
   useEffect(() => {
     getOneCollection(params.collectionSlug, setCollection);
@@ -48,7 +57,12 @@ const UpdateCollection = () => {
           name: collection?.name,
         }}
         onSubmit={async (values) => {
-          await updateCollection(collection.slug, values);
+          await updateCollection(
+            currentUser?.accessToken,
+            collection.slug,
+            values,
+            axiosJWT
+          );
           navigate("/admin/collections");
         }}
       >

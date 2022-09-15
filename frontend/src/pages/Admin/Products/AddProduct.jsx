@@ -2,11 +2,20 @@ import { useEffect, useState } from "react";
 import { addProduct, getAllCollections } from "../../../utils/apiRequest";
 import { Formik, Field, Form } from "formik";
 import { Link, useNavigate } from "react-router-dom";
+import { createAxios } from "../../../utils/createInterceptor";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const AddProduct = () => {
   const [allCollections, setAllCollections] = useState([]);
 
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
   useEffect(() => {
     getAllCollections(setAllCollections);
@@ -48,7 +57,7 @@ const AddProduct = () => {
           collectionId: "631c32fa60c26a22dc545d14",
         }}
         onSubmit={async (values) => {
-          await addProduct(values);
+          await addProduct(currentUser?.accessToken, values, axiosJWT);
           navigate("/admin/products");
         }}
       >

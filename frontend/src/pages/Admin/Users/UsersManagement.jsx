@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../utils/apiRequest";
+import { useDispatch, useSelector } from "react-redux";
+import { createAxios } from "../../../utils/createInterceptor";
+import { loginSuccess } from "../../../redux/authSlice";
 
 const UsersManagement = () => {
   const [allUsers, setAllUsers] = useState([]);
 
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
+
   useEffect(() => {
-    getAllUsers(setAllUsers);
+    getAllUsers(currentUser?.accessToken, setAllUsers, axiosJWT);
   }, []);
 
   return (

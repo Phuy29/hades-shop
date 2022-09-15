@@ -88,58 +88,77 @@ export const getAllCollections = async (setState) => {
   }
 };
 
-export const getAllUsers = async (setState) => {
+export const getAllUsers = async (accessToken, setState, axiosJWT) => {
   try {
-    const res = await axios.get("/user");
+    const res = await axiosJWT.get("/user", {
+      headers: { token: `Bearer ${accessToken}` },
+    });
     setState(res.data);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addProduct = async (product) => {
+export const addProduct = async (accessToken, product, axiosJWT) => {
   try {
-    await axios.post("/product", product);
+    await axiosJWT.post("/product", product, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addCollection = async (collection) => {
+export const addCollection = async (accessToken, collection, axiosJWT) => {
   try {
-    await axios.post("/collection", collection);
+    await axiosJWT.post("/collection", collection, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteProduct = async (id) => {
+export const deleteProduct = async (accessToken, id, axiosJWT) => {
   try {
-    await axios.delete(`/product/${id}`);
+    await axiosJWT.delete(`/product/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateProduct = async (slug, product) => {
+export const updateProduct = async (accessToken, slug, product, axiosJWT) => {
   try {
-    await axios.put(`/product/${slug}`, product);
+    await axiosJWT.put(`/product/${slug}`, product, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteCollection = async (id) => {
+export const deleteCollection = async (accessToken, id, axiosJWT) => {
   try {
-    await axios.delete(`/collection/${id}`);
+    await axiosJWT.delete(`/collection/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateCollection = async (slug, collection) => {
+export const updateCollection = async (
+  accessToken,
+  slug,
+  collection,
+  axiosJWT
+) => {
   try {
-    await axios.put(`/collection/${slug}`, collection);
+    await axiosJWT.put(`/collection/${slug}`, collection, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
   } catch (error) {
     console.log(error);
   }

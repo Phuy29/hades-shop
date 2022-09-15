@@ -1,15 +1,24 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { loginSuccess } from "../../../redux/authSlice";
 import {
   getAllCollections,
   getOneProduct,
   updateProduct,
 } from "../../../utils/apiRequest";
+import { createAxios } from "../../../utils/createInterceptor";
 
 const UpdateProduct = () => {
   const [allCollections, setAllCollections] = useState([]);
   const [product, setProduct] = useState([]);
+
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
   const navigate = useNavigate();
 
@@ -60,7 +69,12 @@ const UpdateProduct = () => {
           collectionId: product.collectionId,
         }}
         onSubmit={async (values) => {
-          await updateProduct(product.slug, values);
+          await updateProduct(
+            currentUser?.accessToken,
+            product.slug,
+            values,
+            axiosJWT
+          );
           navigate("/admin/products");
         }}
       >

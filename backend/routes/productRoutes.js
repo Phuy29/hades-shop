@@ -1,4 +1,5 @@
 const productController = require("../controllers/productController");
+const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
 const router = require("express").Router();
 
@@ -6,10 +7,10 @@ router.get("/", productController.getAllProduct);
 
 router.get("/:slug", productController.getOneProduct);
 
-router.post("/", productController.addProduct);
+router.post("/", verifyTokenAndAdmin, productController.addProduct);
 
-router.put("/:slug", productController.updateProduct);
+router.put("/:slug", verifyTokenAndAdmin, productController.updateProduct);
 
-router.delete("/:id", productController.deleteProduct);
+router.delete("/:id", verifyTokenAndAdmin, productController.deleteProduct);
 
 module.exports = router;

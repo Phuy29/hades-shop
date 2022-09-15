@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginSuccess } from "../../../redux/authSlice";
 import { deleteCollection, getAllCollections } from "../../../utils/apiRequest";
+import { createAxios } from "../../../utils/createInterceptor";
 
 const CollectionsManagement = () => {
   const [allCollections, setAllCollections] = useState([]);
@@ -81,13 +84,19 @@ const CollectionsManagement = () => {
 };
 
 const DeleteModel = ({ isOpen, setIsOpen, id, setAllCollections }) => {
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   const handleDelete = async () => {
-    await deleteCollection(id);
-    await getAllCollections(setAllCollections);
+    await deleteCollection(currentUser?.accessToken, id, axiosJWT);
+    getAllCollections(setAllCollections);
     setIsOpen(false);
   };
   return (
