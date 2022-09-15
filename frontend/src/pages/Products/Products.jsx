@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart, getTotalPrice } from "../../redux/cartSlice";
+import { addToCart, getTotal } from "../../redux/cartSlice";
 import { CartContext } from "../../Context/CartContext";
 import { toast } from "react-toastify";
 import { getOneProduct } from "../../utils/apiRequest";
@@ -49,7 +49,7 @@ const Product = () => {
       });
     } else {
       dispatch(addToCart(newItem));
-      dispatch(getTotalPrice());
+      dispatch(getTotal());
       setOpenSlideCart(true);
     }
   };
@@ -86,7 +86,7 @@ const Product = () => {
       });
     } else {
       dispatch(addToCart(newItem));
-      dispatch(getTotalPrice());
+      dispatch(getTotal());
     }
   };
 

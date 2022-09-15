@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../Context/CartContext";
 import { useDispatch } from "react-redux";
-import { addToCart, getTotalPrice } from "../redux/cartSlice";
+import { addToCart, getTotal } from "../redux/cartSlice";
 
 const ProductCard = ({
   id,
@@ -23,21 +23,21 @@ const ProductCard = ({
     name: name,
     slug: slug,
     price: Number(price.slice(0, 3)),
-    color: colors[0].name,
+    color: colors[0],
     size: size[0],
     imageUrl: imageUrl,
   };
 
   const handleClick = () => {
     dispatch(addToCart(newItem));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
 
     setOpenSlideCart(true);
   };
 
   const handleGoToCart = () => {
     dispatch(addToCart(newItem));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
   };
 
   return (

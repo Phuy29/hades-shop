@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cartSlice, { getTotalPrice } from "./cartSlice";
+import cartSlice, { getTotal } from "./cartSlice";
 import authSlice from "./authSlice";
 
 const store = configureStore({
@@ -9,6 +9,6 @@ const store = configureStore({
   },
 });
 
-store.dispatch(getTotalPrice());
+store.dispatch(getTotal());
 
 export default store;

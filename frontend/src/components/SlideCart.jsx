@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTotalPrice, removeCartItem } from "../redux/cartSlice";
+import { getTotal, removeCartItem } from "../redux/cartSlice";
 
 const SlideCart = () => {
   const { openSlideCart, setOpenSlideCart } = useContext(CartContext);
@@ -16,7 +16,7 @@ const SlideCart = () => {
 
   const handleRemoveCartItem = (product) => {
     dispatch(removeCartItem(product));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
   };
 
   const handleCloseSlideCart = () => {

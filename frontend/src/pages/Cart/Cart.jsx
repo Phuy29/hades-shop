@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { BsTrash } from "react-icons/bs";
 import {
   decreaseQuantity,
-  getTotalPrice,
+  getTotal,
   increaseQuantity,
   removeCartItem,
 } from "../../redux/cartSlice";
@@ -21,17 +21,17 @@ const Cart = () => {
 
   const handleDecreaseCartQuantity = (product) => {
     dispatch(decreaseQuantity(product));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
   };
 
   const handleIncreaseCartQuantity = (product) => {
     dispatch(increaseQuantity(product));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
   };
 
   const handleRemoverCartItem = (product) => {
     dispatch(removeCartItem(product));
-    dispatch(getTotalPrice());
+    dispatch(getTotal());
   };
 
   const setComma = (value) => {
