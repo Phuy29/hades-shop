@@ -163,3 +163,34 @@ export const updateCollection = async (
     console.log(error);
   }
 };
+
+export const deleteUser = async (accessToken, id, axiosJWT) => {
+  try {
+    await axiosJWT.delete(`/user/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOneUser = async (accessToken, id, setState, axiosJWT) => {
+  try {
+    const res = await axiosJWT.get(`/user/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUser = async (accessToken, id, user, axiosJWT) => {
+  try {
+    await axiosJWT.put(`/user/${id}`, user, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

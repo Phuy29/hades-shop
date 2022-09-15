@@ -21,6 +21,7 @@ import AddCollection from "./pages/Admin/Collections/AddCollection";
 import UpdateProduct from "./pages/Admin/Products/UpdateProduct";
 import Custom404 from "./pages/404";
 import UpdateCollection from "./pages/Admin/Collections/UpdateCollection";
+import UpdateUser from "./pages/Admin/Users/UpdateUser";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -76,6 +77,10 @@ function App() {
             <Route
               path="/admin/collections/update-collection/:collectionSlug"
               element={<UpdateCollection />}
+            />
+            <Route
+              path="/admin/users/update-user/:userId"
+              element={<UpdateUser />}
             />
             <Route path="*" element={<Custom404 />} />
           </Routes>
