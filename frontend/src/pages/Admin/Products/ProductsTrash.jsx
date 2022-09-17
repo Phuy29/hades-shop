@@ -2,16 +2,25 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginSuccess } from "../../../redux/authSlice";
-import { deleteProduct, getAllProducts } from "../../../utils/apiRequest";
+import {
+  deleteOneProductForce,
+  getAllProductsTrash,
+  restoreOneProduct,
+} from "../../../utils/apiRequest";
 import { createAxios } from "../../../utils/createInterceptor";
 
-const ProductManagement = () => {
+const ProductsTrash = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [productId, setProductId] = useState("");
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
   useEffect(() => {
-    getAllProducts(setAllProducts);
+    getAllProductsTrash(currentUser?.accessToken, setAllProducts, axiosJWT);
   }, []);
 
   const handleDelete = (id) => {
@@ -19,30 +28,42 @@ const ProductManagement = () => {
     setProductId(id);
   };
 
+  const handleRestore = async (id) => {
+    await restoreOneProduct(currentUser?.accessToken, id, axiosJWT);
+    getAllProductsTrash(currentUser?.accessToken, setAllProducts, axiosJWT);
+  };
+
   return (
     <div className="mt-24 px-14">
       <div className="">
+        {/* Button back */}
+        <Link to="/admin/products">
+          <div className="flex gap-1 items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+            <div className="cursor-pointer">Back</div>
+          </div>
+        </Link>
+
         {/* Heading */}
         <h1 className="text-36 font-medium text-center mb-8">
-          Quản lý sản phẩm
+          Danh sách sản phẩm đã xóa
         </h1>
 
-        {/* Button add product */}
-        <div className="flex justify-between items-center">
-          <Link to="/admin/products/trash">
-            <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-              Thùng rác
-            </button>
-          </Link>
-          <Link to="/admin/products/add-product">
-            <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-              Add product
-            </button>
-          </Link>
-        </div>
-
         {/* Table */}
-        <div className="container mx-auto mt-5 pb-20">
+        <div className="container mx-auto mt-7 pb-20">
           <table className="table-fixed cursor-pointer">
             {/* head */}
             <thead className="bg-gray-200">
@@ -63,11 +84,11 @@ const ProductManagement = () => {
                 <tr>
                   <td colSpan="7">
                     <div className="mt-5 text-20">
-                      There are currently no products.
+                      The trash is currently empty
                     </div>
-                    <Link to="/admin/products/add-product">
+                    <Link to="/admin/products">
                       <div className="mt-2 text-blue-700 hover:underline">
-                        Add product
+                        Back
                       </div>
                     </Link>
                   </td>
@@ -96,16 +117,15 @@ const ProductManagement = () => {
                           {product.collectionId.name}
                         </td>
                         <td className="flex justify-center gap-3 mt-28">
-                          <Link
-                            to={`/admin/products/update-product/${product.slug}`}
+                          <button
+                            className="py-2 px-4 bg-black text-white hover:opacity-60"
+                            onClick={() => handleRestore(product.slug)}
                           >
-                            <button className="py-2 px-4 bg-black text-white hover:opacity-60">
-                              Update
-                            </button>
-                          </Link>
+                            Restore
+                          </button>
                           <button
                             className="py-2 px-4 border border-black hover:opacity-60"
-                            onClick={() => handleDelete(product.slug)}
+                            onClick={() => handleDelete(product._id)}
                           >
                             Delete
                           </button>
@@ -141,8 +161,8 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
   };
 
   const handleDelete = async () => {
-    await deleteProduct(currentUser?.accessToken, id, axiosJWT);
-    getAllProducts(setAllProducts);
+    await deleteOneProductForce(currentUser?.accessToken, id, axiosJWT);
+    getAllProductsTrash(setAllProducts);
     setIsOpen(false);
   };
 
@@ -155,7 +175,7 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
           <div className="fixed z-30 inset-0 overflow-y-auto flex justify-center items-center flex-col">
             <div className="bg-white rounded-md relative">
               <div className="p-6 text-20 font-normal text-gray-900">
-                Bạn có chắc chắn muốn xóa sản phẩm này không?
+                Hành động này sẽ không thể khôi phục?
               </div>
               <div className="bg-gray-50 px-4 py-3 rounded-md sm:flex sm:flex-row-reverse sm:px-6">
                 <button
@@ -181,4 +201,4 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
   );
 };
 
-export default ProductManagement;
+export default ProductsTrash;

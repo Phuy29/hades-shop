@@ -194,3 +194,38 @@ export const updateUser = async (accessToken, id, user, axiosJWT) => {
     console.log(error);
   }
 };
+
+export const getAllProductsTrash = async (accessToken, setState, axiosJWT) => {
+  try {
+    const res = await axiosJWT.get("/product/trash", {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+    setState(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreOneProduct = async (accessToken, id, axiosJWT) => {
+  try {
+    await axiosJWT.patch(
+      `/product/restore/${id}`,
+      {},
+      {
+        headers: { token: `Bearer ${accessToken}` },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteOneProductForce = async (accessToken, id, axiosJWT) => {
+  try {
+    await axiosJWT.delete(`/product/delete/force/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

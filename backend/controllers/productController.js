@@ -26,6 +26,17 @@ const productController = {
     }
   },
 
+  getAllProductTrash: async (req, res) => {
+    try {
+      const allProductTrash = await Product.findDeleted().populate(
+        "collectionId"
+      );
+      res.status(200).json(allProductTrash);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
   getOneProduct: async (req, res) => {
     try {
       const oneProduct = await Product.findOne({ slug: req.params.slug });
@@ -47,12 +58,30 @@ const productController = {
 
   deleteProduct: async (req, res) => {
     try {
+      await Product.delete({ slug: req.params.slug });
+      res.status(200).json("Deleted successfully!");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  restoreProduct: async (req, res) => {
+    try {
+      await Product.restore({ slug: req.params.slug });
+      res.status(200).json("Restore successfully!");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  deleteProductForce: async (req, res) => {
+    try {
       await Collection.updateMany(
-        { products: req.params.id },
+        { product: req.params.id },
         { $pull: { products: req.params.id } }
       );
-      await Product.findByIdAndDelete(req.params.id);
-      res.status(200).json("Deleted successfully!");
+      await Product.deleteOne({ _id: req.params.id });
+      res.status(200).json("Delete force successfully!");
     } catch (error) {
       res.status(500).json(error);
     }

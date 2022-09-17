@@ -22,6 +22,7 @@ import UpdateProduct from "./pages/Admin/Products/UpdateProduct";
 import Custom404 from "./pages/404";
 import UpdateCollection from "./pages/Admin/Collections/UpdateCollection";
 import UpdateUser from "./pages/Admin/Users/UpdateUser";
+import ProductsTrash from "./pages/Admin/Products/ProductsTrash";
 
 function App() {
   const [openSlideCart, setOpenSlideCart] = useState(false);
@@ -82,6 +83,7 @@ function App() {
               path="/admin/users/update-user/:userId"
               element={<UpdateUser />}
             />
+            <Route path="/admin/products/trash" element={<ProductsTrash />} />
             <Route path="*" element={<Custom404 />} />
           </Routes>
           <SlideCart />

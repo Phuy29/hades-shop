@@ -5,12 +5,26 @@ const router = require("express").Router();
 
 router.get("/", productController.getAllProduct);
 
+router.get("/trash", verifyTokenAndAdmin, productController.getAllProductTrash);
+
 router.get("/:slug", productController.getOneProduct);
 
 router.post("/", verifyTokenAndAdmin, productController.addProduct);
 
 router.put("/:slug", verifyTokenAndAdmin, productController.updateProduct);
 
-router.delete("/:id", verifyTokenAndAdmin, productController.deleteProduct);
+router.delete("/:slug", verifyTokenAndAdmin, productController.deleteProduct);
+
+router.patch(
+  "/restore/:slug",
+  verifyTokenAndAdmin,
+  productController.restoreProduct
+);
+
+router.delete(
+  "/delete/force/:id",
+  verifyTokenAndAdmin,
+  productController.deleteProductForce
+);
 
 module.exports = router;
