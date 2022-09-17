@@ -2,13 +2,32 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginSuccess } from "../../../redux/authSlice";
-import { deleteProduct, getAllProducts } from "../../../utils/apiRequest";
+import {
+  deleteProduct,
+  getAllProducts,
+  getAllProductsTrash,
+} from "../../../utils/apiRequest";
 import { createAxios } from "../../../utils/createInterceptor";
 
 const ProductManagement = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const [countDeletedProducts, setCountDeletedProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [productId, setProductId] = useState("");
+
+  const currentUser = useSelector((state) => state.auth.login?.currentUser);
+
+  const dispatch = useDispatch();
+
+  const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
+
+  useEffect(() => {
+    getAllProductsTrash(
+      currentUser?.accessToken,
+      setCountDeletedProducts,
+      axiosJWT
+    );
+  }, []);
 
   useEffect(() => {
     getAllProducts(setAllProducts);
@@ -30,8 +49,8 @@ const ProductManagement = () => {
         {/* Button add product */}
         <div className="flex justify-between items-center">
           <Link to="/admin/products/trash">
-            <button className="py-2 px-4 border border-black cursor-pointer hover:bg-black hover:text-white">
-              Thùng rác
+            <button className="hover:underline">
+              Thùng rác ({countDeletedProducts.length})
             </button>
           </Link>
           <Link to="/admin/products/add-product">
@@ -124,12 +143,19 @@ const ProductManagement = () => {
         setIsOpen={setIsOpen}
         id={productId}
         setAllProducts={setAllProducts}
+        setCountDeletedProducts={setCountDeletedProducts}
       />
     </div>
   );
 };
 
-const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
+const ModelDelete = ({
+  isOpen,
+  setIsOpen,
+  id,
+  setAllProducts,
+  setCountDeletedProducts,
+}) => {
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
 
   const dispatch = useDispatch();
@@ -142,6 +168,11 @@ const ModelDelete = ({ isOpen, setIsOpen, id, setAllProducts }) => {
 
   const handleDelete = async () => {
     await deleteProduct(currentUser?.accessToken, id, axiosJWT);
+    await getAllProductsTrash(
+      currentUser?.accessToken,
+      setCountDeletedProducts,
+      axiosJWT
+    );
     getAllProducts(setAllProducts);
     setIsOpen(false);
   };
