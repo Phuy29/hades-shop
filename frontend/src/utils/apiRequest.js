@@ -70,10 +70,11 @@ export const getOneCollection = async (id, setState) => {
   }
 };
 
-export const getAllProducts = async (setState) => {
+export const getAllProducts = async () => {
   try {
     const res = await axios.get("/product");
-    setState(res.data);
+    // setState(res.data);
+    return res;
   } catch (error) {
     console.log(error);
   }
