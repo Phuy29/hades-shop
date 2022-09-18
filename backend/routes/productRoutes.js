@@ -27,4 +27,10 @@ router.delete(
   productController.deleteProductForce
 );
 
+router.post(
+  "/delete/checked-products",
+  verifyTokenAndAdmin,
+  productController.deleteCheckedProduct
+);
+
 module.exports = router;

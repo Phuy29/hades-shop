@@ -73,7 +73,6 @@ export const getOneCollection = async (id, setState) => {
 export const getAllProducts = async () => {
   try {
     const res = await axios.get("/product");
-    // setState(res.data);
     return res;
   } catch (error) {
     console.log(error);
@@ -224,6 +223,20 @@ export const restoreOneProduct = async (accessToken, id, axiosJWT) => {
 export const deleteOneProductForce = async (accessToken, id, axiosJWT) => {
   try {
     await axiosJWT.delete(`/product/delete/force/${id}`, {
+      headers: { token: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCheckedProducts = async (
+  accessToken,
+  checkedProducts,
+  axiosJWT
+) => {
+  try {
+    await axiosJWT.post("/product/delete/checked-products", checkedProducts, {
       headers: { token: `Bearer ${accessToken}` },
     });
   } catch (error) {

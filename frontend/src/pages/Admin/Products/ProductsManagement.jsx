@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginSuccess } from "../../../redux/authSlice";
 import {
+  deleteCheckedProducts,
   deleteProduct,
   getAllProducts,
   getAllProductsTrash,
@@ -15,9 +16,10 @@ const ProductManagement = () => {
   const [countDeletedProducts, setCountDeletedProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [productId, setProductId] = useState("");
-  const [checkedAll, setCheckedAll] = useState(false);
+  const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [checkedItemList, setCheckedItemList] = useState([]);
   const [isDeleteBtn, setIsDeleteBtn] = useState(false);
+  const [checkedCheckboxId, setCheckedCheckboxId] = useState([]);
 
   const currentUser = useSelector((state) => state.auth.login?.currentUser);
 
@@ -33,13 +35,14 @@ const ProductManagement = () => {
     );
   }, []);
 
+  const fetchAllProductApi = async () => {
+    const res = await getAllProducts();
+    setAllProducts(res.data);
+    setCheckedItemList(new Array(res.data.length).fill(false));
+  };
+
   useEffect(() => {
-    const fetchApi = async () => {
-      const res = await getAllProducts();
-      setAllProducts(res.data);
-      setCheckedItemList(new Array(res.data.length).fill(false));
-    };
-    fetchApi();
+    fetchAllProductApi();
   }, []);
 
   const handleDelete = (id) => {
@@ -47,14 +50,16 @@ const ProductManagement = () => {
     setProductId(id);
   };
 
-  const handleChange = () => {
-    setCheckedAll(!checkedAll);
-    setCheckedItemList(new Array(allProducts.length).fill(!checkedAll));
-    if (!checkedAll) {
-      setIsDeleteBtn(true);
-    } else {
-      setIsDeleteBtn(false);
-    }
+  const handleChangeCheckboxAll = () => {
+    setIsCheckedAll(!isCheckedAll);
+    setCheckedItemList(new Array(allProducts.length).fill(!isCheckedAll));
+    setIsDeleteBtn(!isCheckedAll);
+    const checkedProductIdArr = allProducts.map((product) => {
+      return product._id;
+    });
+    !isCheckedAll
+      ? setCheckedCheckboxId(checkedProductIdArr)
+      : setCheckedCheckboxId([]);
   };
 
   const handleChangeCheckboxItem = (position) => {
@@ -66,10 +71,22 @@ const ProductManagement = () => {
 
     const totalCheckedCheckbox = updateCheckedItemList.reduce((total, item) => {
       if (item === true) {
-        return (total += 1);
+        total += 1;
       }
       return total;
     }, 0);
+
+    const checkedProductIdArr = updateCheckedItemList.reduce(
+      (total, item, index) => {
+        if (item === true) {
+          total.push(allProducts[index]._id);
+        }
+        return total;
+      },
+      []
+    );
+
+    setCheckedCheckboxId(checkedProductIdArr);
 
     if (updateCheckedItemList.includes(true)) {
       setIsDeleteBtn(true);
@@ -78,11 +95,28 @@ const ProductManagement = () => {
     }
 
     const isCheckedAll = allProducts.length === totalCheckedCheckbox;
-    setCheckedAll(isCheckedAll);
+    setIsCheckedAll(isCheckedAll);
+  };
+
+  const handleSubmitFormDelete = async () => {
+    await deleteCheckedProducts(
+      currentUser?.accessToken,
+      checkedCheckboxId,
+      axiosJWT
+    );
+    fetchAllProductApi();
+    getAllProductsTrash(
+      currentUser?.accessToken,
+      setCountDeletedProducts,
+      axiosJWT
+    );
+    setCheckedItemList(new Array(allProducts.length).fill(false));
+    setIsDeleteBtn(false);
+    setIsCheckedAll(false);
   };
 
   return (
-    <div className="mt-24 px-14">
+    <div className="mt-24 px-36">
       <div className="">
         {/* Heading */}
         <h1 className="text-36 font-medium text-center mb-8">
@@ -108,15 +142,18 @@ const ProductManagement = () => {
             <input
               type="checkbox"
               id="checkboxAll"
-              onChange={handleChange}
-              checked={checkedAll}
+              onChange={handleChangeCheckboxAll}
+              checked={isCheckedAll}
             />
             <label htmlFor="checkboxAll" className="ml-1 cursor-pointer">
               Select all
             </label>
           </div>
           {isDeleteBtn && (
-            <button className="py-1 px-2 flex gap-1 items-center border border-black cursor-pointer rounded-md hover:bg-black hover:text-white">
+            <button
+              className="py-1 px-2 flex gap-1 items-center border border-black cursor-pointer rounded-md hover:bg-black hover:text-white"
+              onClick={handleSubmitFormDelete}
+            >
               <BsTrash />
               <span>Delete</span>
             </button>
@@ -242,12 +279,12 @@ const ModelDelete = ({
 
   const handleDelete = async () => {
     await deleteProduct(currentUser?.accessToken, id, axiosJWT);
-    await getAllProductsTrash(
+    getAllProductsTrash(
       currentUser?.accessToken,
       setCountDeletedProducts,
       axiosJWT
     );
-    getAllProducts(setAllProducts);
+    getAllProducts().then((res) => setAllProducts(res.data));
     setIsOpen(false);
   };
 

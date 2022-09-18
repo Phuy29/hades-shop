@@ -34,7 +34,7 @@ const ProductsTrash = () => {
   };
 
   return (
-    <div className="mt-24 px-14">
+    <div className="mt-24 px-36">
       <div className="">
         {/* Button back */}
         <Link to="/admin/products">
