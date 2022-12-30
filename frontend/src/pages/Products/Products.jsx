@@ -2,12 +2,12 @@ import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, getTotal } from "../../redux/cartSlice";
-import { CartContext } from "../../Context/CartContext";
+import { SidebarContext } from "../../Context/SidebarContext";
 import { toast } from "react-toastify";
 import { getOneProduct } from "../../utils/apiRequest";
 
 const Product = () => {
-  const { setOpenSlideCart } = useContext(CartContext);
+  const { setOpenSlideCart } = useContext(SidebarContext);
   const [product, setProduct] = useState([]);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");

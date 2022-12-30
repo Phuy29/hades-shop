@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../Context/CartContext";
+import { SidebarContext } from "../Context/SidebarContext";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCollections, logoutUser } from "../utils/apiRequest";
@@ -19,7 +19,7 @@ const classNames = (...classes) => {
 };
 
 const Navbar = () => {
-  const { setOpenSlideCart, setOpenSearch } = useContext(CartContext);
+  const { setOpenSlideCart, setOpenSearch } = useContext(SidebarContext);
   const cart = useSelector((state) => state.cart);
   const [isBg, setIsBg] = useState(false);
   const [allCollections, setAllCollections] = useState([]);

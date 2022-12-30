@@ -36,9 +36,9 @@ const ProductManagement = () => {
   }, []);
 
   const fetchAllProductApi = async () => {
-    const res = await getAllProducts();
-    setAllProducts(res.data);
-    setCheckedItemList(new Array(res.data.length).fill(false));
+    const allProduct = await getAllProducts();
+    setAllProducts(allProduct);
+    setCheckedItemList(new Array(allProduct.length).fill(false));
   };
 
   useEffect(() => {
@@ -225,20 +225,22 @@ const ProductManagement = () => {
                         <td className="uppercase">
                           {product.collectionId.name}
                         </td>
-                        <td className="flex justify-center gap-3 mt-28">
-                          <Link
-                            to={`/admin/products/update-product/${product.slug}`}
-                          >
-                            <button className="py-2 px-4 bg-black text-white hover:opacity-60">
-                              Update
+                        <td className="align-middle">
+                          <div className="flex gap-2 items-center">
+                            <Link
+                              to={`/admin/products/update-product/${product.slug}`}
+                            >
+                              <button className="py-2 px-4 bg-black text-white hover:opacity-60">
+                                Update
+                              </button>
+                            </Link>
+                            <button
+                              className="py-2 px-4 border border-black hover:opacity-60"
+                              onClick={() => handleDelete(product.slug)}
+                            >
+                              Delete
                             </button>
-                          </Link>
-                          <button
-                            className="py-2 px-4 border border-black hover:opacity-60"
-                            onClick={() => handleDelete(product.slug)}
-                          >
-                            Delete
-                          </button>
+                          </div>
                         </td>
                       </tr>
                     );

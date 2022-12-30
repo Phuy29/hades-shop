@@ -2,13 +2,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { XIcon } from "@heroicons/react/outline";
 import { useContext } from "react";
-import { CartContext } from "../Context/CartContext";
+import { SidebarContext } from "../Context/SidebarContext";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getTotal, removeCartItem } from "../redux/cartSlice";
 
 const SlideCart = () => {
-  const { openSlideCart, setOpenSlideCart } = useContext(CartContext);
+  const { openSlideCart, setOpenSlideCart } = useContext(SidebarContext);
 
   const cart = useSelector((state) => state.cart);
 
@@ -59,7 +59,7 @@ const SlideCart = () => {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className=" w-[480px]">
-                  <div className="flex flex-col h-screen bg-white overflow-y-scroll shawdow-xl">
+                  <div className="flex flex-col h-screen bg-white overflow-y-scroll shadow-xl">
                     <div className="flex-1 overflow-y-auto py-[100px] px-16 ">
                       <div className="flex justify-between items-center">
                         <Dialog.Title className="uppercase text-14 text-gray-900">

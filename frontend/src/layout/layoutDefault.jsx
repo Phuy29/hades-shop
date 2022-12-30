@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
-const Layout = ({ children }) => {
+const LayoutDefault = ({ children }) => {
   return (
     <div className="h-screen">
       <Navbar />
@@ -11,4 +11,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default LayoutDefault;

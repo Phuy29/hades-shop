@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="w-full">
       <div className="flex justify-between gap-x-4 mx-24 my-14">
         <div className="">
-          <div className="text-13 uppercase font-semibold mt-3">
+          <div className="text-20 uppercase font-semibold mt-3">
             HADES STORE SYSTEM
           </div>
-          <div className="text-12 font-light mt-5">
+          <div className="text-12 font-light mt-5 flex flex-col gap-3">
             <p>
               Hades FLAGSHIP STORE: 69 QUANG TRUNG STREET, GO VAP DISTRICT,
               HOCHIMINH.
@@ -32,7 +32,7 @@ const Footer = () => {
 
         <div>
           <div className="text-13 uppercase font-semibold mt-3">POLICY</div>
-          <div className="text-12 font-light mt-5">
+          <div className="text-12 font-light mt-5 flex flex-col gap-3">
             <p>- Website usage policy</p>
             <p>- Payment Options</p>
             <p>- Returns & Exchanges</p>
@@ -47,7 +47,7 @@ const Footer = () => {
           <div className="text-13 uppercase font-semibold mt-3">
             CONTACT INFO
           </div>
-          <div className="text-12 font-light mt-5">
+          <div className="text-12 font-light mt-5 flex flex-col gap-3">
             <p>
               - HADES COMPANY LIMITED Add: 45 Phan Chu Trinh, Ben Thanh, Q1, Ho
               Chi Minh City

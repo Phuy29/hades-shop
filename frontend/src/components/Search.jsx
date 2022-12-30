@@ -4,14 +4,25 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { search } from "../services/searchService";
-import { CartContext } from "../Context/CartContext";
+import { SidebarContext } from "../Context/SidebarContext";
+import { getAllProducts } from "../utils/apiRequest";
 
 const Search = () => {
-  const { openSearch, setOpenSearch } = useContext(CartContext);
+  const { openSearch, setOpenSearch } = useContext(SidebarContext);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [allProduct, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const allProduct = await getAllProducts();
+
+      setAllProducts(allProduct);
+    };
+
+    fetchApi();
+  }, []);
 
   const inputRef = useRef();
 
@@ -23,14 +34,17 @@ const Search = () => {
       return;
     }
 
-    const fetchApi = async () => {
-      const result = await search(debounceValue);
+    const lowerDebounceValue = debounceValue.toLocaleLowerCase();
+    const filteredProjects = allProduct
+      ? allProduct.filter((product) =>
+          product?.name.toLocaleLowerCase().includes(lowerDebounceValue)
+        )
+      : [];
 
-      setSearchResult(result);
-    };
-
-    fetchApi();
+    setSearchResult(filteredProjects);
   }, [debounceValue]);
+
+  console.log("searchResult", searchResult);
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
@@ -98,14 +112,14 @@ const Search = () => {
                       ref={inputRef}
                       type="text"
                       placeholder="Search in Hades ..."
-                      className="relative uppercase w-full shadow-md p-5 mb-2 bg-gray-200 focus:bg-gray-100 placeholder:text-gray-600 placeholder:uppercase border-none outline-none block border-gray-300"
+                      className="relative uppercase w-full shadow-sm p-5 bg-gray-200 focus:bg-gray-100 placeholder:text-gray-600 placeholder:uppercase border-none outline-none block border-gray-300"
                       value={searchValue}
                       onChange={handleChange}
                       onFocus={() => setShowResult(true)}
                     />
                     {searchValue && (
                       <button
-                        className="absolute right-24 top-[215px]"
+                        className="absolute right-20 top-[215px] text-gray-400"
                         onClick={handleClear}
                       >
                         <svg
@@ -129,18 +143,19 @@ const Search = () => {
                     <div>
                       {searchResult.map((item) => {
                         return (
-                          <Link to="/product" key={item.id}>
+                          <Link
+                            to={`/product/${item.slug}`}
+                            key={item._id}
+                            onClick={() => setOpenSearch(false)}
+                          >
                             <div className="flex justify-between items-center text-14 border-b border-gray-100 pt-2 pb-5">
                               <div>
-                                <p>{item.full_name}</p>
-                                <p>
-                                  {item.nickname}
-                                  <span>₫</span>
-                                </p>
+                                <p>{item.name}</p>
+                                <p>{item.price}.000₫</p>
                               </div>
                               <div>
                                 <img
-                                  src={item.avatar}
+                                  src={item.imgUrl}
                                   alt=""
                                   className="w-11"
                                 />
@@ -149,6 +164,12 @@ const Search = () => {
                           </Link>
                         );
                       })}
+                    </div>
+                  )}
+
+                  {searchResult.length === 0 && showResult && searchValue && (
+                    <div className="py-2 bg-white shadow-sm text-center">
+                      No results for your search..
                     </div>
                   )}
                 </div>

@@ -5,10 +5,10 @@ import { useState } from "react";
 import Home from "./pages/Home/Home";
 import Collections from "./pages/Collections/Collections";
 import Cart from "./pages/Cart/Cart";
-import { CartContext } from "./Context/CartContext";
+import { SidebarContext } from "./Context/SidebarContext";
 import SlideCart from "./components/SlideCart";
 import Search from "./components/Search";
-import Layout from "./layout/layoutContainer";
+import Layout from "./layout/layoutDefault";
 import Product from "./pages/Products/Products";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
@@ -29,7 +29,7 @@ function App() {
   const [openSearch, setOpenSearch] = useState(false);
 
   return (
-    <CartContext.Provider
+    <SidebarContext.Provider
       value={{
         openSlideCart,
         setOpenSlideCart,
@@ -90,7 +90,7 @@ function App() {
           <Search />
         </Layout>
       </Router>
-    </CartContext.Provider>
+    </SidebarContext.Provider>
   );
 }
 

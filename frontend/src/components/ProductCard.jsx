@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../Context/CartContext";
+import { SidebarContext } from "../Context/SidebarContext";
 import { useDispatch } from "react-redux";
 import { addToCart, getTotal } from "../redux/cartSlice";
 
@@ -14,7 +14,7 @@ const ProductCard = ({
   imageUrl,
   imageHoverUrl,
 }) => {
-  const { setOpenSlideCart } = useContext(CartContext);
+  const { setOpenSlideCart } = useContext(SidebarContext);
 
   const dispatch = useDispatch();
 
