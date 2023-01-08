@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { SidebarContext } from "../Context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCollections, logoutUser } from "../utils/apiRequest";

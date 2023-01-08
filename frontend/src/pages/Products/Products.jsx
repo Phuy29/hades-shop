@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, getTotal } from "../../redux/cartSlice";
-import { SidebarContext } from "../../Context/SidebarContext";
+import { SidebarContext } from "../../context/SidebarContext";
 import { toast } from "react-toastify";
 import { getOneProduct } from "../../utils/apiRequest";
 

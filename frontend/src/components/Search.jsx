@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { SidebarContext } from "../Context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
 import { getAllProducts } from "../utils/apiRequest";
 
 const Search = () => {
@@ -42,9 +42,7 @@ const Search = () => {
       : [];
 
     setSearchResult(filteredProjects);
-  }, [debounceValue]);
-
-  console.log("searchResult", searchResult);
+  }, [debounceValue, allProduct]);
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);

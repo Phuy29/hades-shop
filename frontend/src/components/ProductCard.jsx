@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { SidebarContext } from "../Context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
 import { useDispatch } from "react-redux";
 import { addToCart, getTotal } from "../redux/cartSlice";
 

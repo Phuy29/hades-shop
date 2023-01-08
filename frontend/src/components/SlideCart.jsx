@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { XIcon } from "@heroicons/react/outline";
 import { useContext } from "react";
-import { SidebarContext } from "../Context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getTotal, removeCartItem } from "../redux/cartSlice";
